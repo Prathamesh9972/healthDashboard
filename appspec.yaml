@@ -2,10 +2,9 @@ version: 0.0
 os: linux
 files:
   - source: /
-    destination: /var/www/html # or your EC2 target directory
-
+    destination: /var/www/html/react-app  
 hooks:
   AfterInstall:
     - location: scripts/restart_server.sh
-      timeout: 60
+      timeout: 300
       runas: root
