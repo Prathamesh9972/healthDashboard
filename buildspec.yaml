@@ -11,5 +11,12 @@ phases:
       - npm run build
 artifacts:
   files:
+<<<<<<< HEAD
     - '**/*'
-  base-directory: dist 
+  base-directory: dist
+=======
+    - appspec.yml
+    - scripts/**/*
+    - dist/**/* # CRA
+  discard-paths: no
+>>>>>>> 0aa9c7b (added script folder)
