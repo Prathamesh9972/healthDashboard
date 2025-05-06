@@ -17,10 +17,6 @@
 #     - 'dist/**/*'
 
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 3c1eed4 (updated the buildspec file)
 version: 0.2
 
 phases:
