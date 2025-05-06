@@ -1,17 +1,52 @@
-version: 0.2
+# version: 0.2
+
+# phases:
+#   install:
+#     runtime-versions:
+#       nodejs: 18
+#     commands:
+#       - npm install
+#   build:
+#     commands:
+#       - npm run build
+#   post_build:
+#     commands:
+#       - echo "Build completed on `date`"
+# artifacts:
+#   files:
+#     - 'dist/**/*'
+
+
+
+vversion: 0.2
 
 phases:
   install:
     runtime-versions:
       nodejs: 18
     commands:
+      - echo Installing dependencies...
       - npm install
+
   build:
     commands:
+      - echo Building the project...
       - npm run build
+
   post_build:
     commands:
       - echo "Build completed on `date`"
+      - mkdir output
+      - cp -r dist appspec.yml scripts output/
+      - cd output
+      - zip -r myapp.zip .
+      - aws s3 cp myapp.zip s3://cicd-bucket-011/myapp.zip
+      - aws deploy create-deployment \
+          --application-name MyApp \
+          --deployment-group-name MyDeploymentGroup \
+          --s3-location bucket=cicd-bucket-011,key=myapp.zip,bundleType=zip \
+          --region ap-south-1
+
 artifacts:
   files:
-    - 'dist/**/*'
+    - '**/*'
