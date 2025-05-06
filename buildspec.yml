@@ -17,7 +17,6 @@
 #     - 'dist/**/*'
 
 
-
 version: 0.2
 
 phases:
@@ -25,12 +24,12 @@ phases:
     runtime-versions:
       nodejs: 18
     commands:
-      - echo Installing dependencies...
+      - echo "Installing dependencies..."
       - npm install
 
   build:
     commands:
-      - echo Building the project...
+      - echo "Building the project..."
       - npm run build
 
   post_build:
@@ -41,7 +40,8 @@ phases:
       - cd output
       - zip -r myapp.zip .
       - aws s3 cp myapp.zip s3://cicd-bucket-011/myapp.zip
-      - aws deploy create-deployment \
+      - |
+        aws deploy create-deployment \
           --application-name MyApp \
           --deployment-group-name MyDeploymentGroup \
           --s3-location bucket=cicd-bucket-011,key=myapp.zip,bundleType=zip \
@@ -50,3 +50,4 @@ phases:
 artifacts:
   files:
     - '**/*'
+
